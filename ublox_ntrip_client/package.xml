@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package format="2">
+  <name>ublox_ntrip_client</name>
+  <version>0.0.0</version>
+  <description>This is an ntrip client node that connects to the ntrip caster server to use RTK with ublox</description>
+  <maintainer email="SBGRP-git@g.softbank.co.jp">SoftBank corp.</maintainer>
+  <license>Apache 2.0</license>
+  <url type="repository">https://github.com/sbgisen/ublox_rtk</url>
+  <url type="bugtracker">https://github.com/sbgisen/ublox_rtk/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+</package>

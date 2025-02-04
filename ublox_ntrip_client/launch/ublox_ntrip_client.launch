@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Set parameters from environment variables if available, otherwise use node defaults -->
+  <param name="ntrip_caster_username" value="$(env NRTRIP_CASTER_USERNAME username)"/>
+  <param name="ntrip_caster_password" value="$(env NRTRIP_CASTER_PASSWORD password)"/>
+  <param name="ntrip_caster_address" value="$(env NRTRIP_CASTER_ADDRESS 127.0.0.1)"/>
+  <param name="ntrip_caster_port" value="$(env NRTRIP_CASTER_PORT 2101)"/>
+  <param name="ntrip_caster_mountpoint" value="$(env NRTRIP_CASTER_MOUNTPOINT mountpoint)"/>
+  <param name="rtcm3_serial_out" value="$(env RTCM3_SERIAL_OUT ttyUblox)"/>
+
+  <!-- Launch the NTRIP client node -->
+  <node name="ntrip_client_node" pkg="ublox_ntrip_client" type="ntrip_client_node" output="screen"/>
+</launch>
