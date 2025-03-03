@@ -48,4 +48,7 @@ source ~/catkin_ws/devel/setup.bash
 ### 1. **ublox_ntrip_client**
 `ublox_ntrip_client` retrieves RTCM3 data from an NTRIP caster and outputs it to a Ublox receiver via a serial port.
 
+### 2. **ublox_dead_reckoning**
+`ublox_dead_reckoning` performs dead reckoning by integrating GNSS, IMU, and wheel odometry data to estimate the position and orientation of a vehicle.
+
 ---
