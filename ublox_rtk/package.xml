@@ -9,6 +9,7 @@
   <url type="bugtracker">https://github.com/sbgisen/ublox_rtk/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>ublox_ntrip_client</exec_depend>
+  <exec_depend>ublox_dead_reckoning</exec_depend>
   <export>
     <metapackage/>
   </export>
