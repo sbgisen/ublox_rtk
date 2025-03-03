@@ -1,0 +1,64 @@
+# ublox_dead_reckoning
+This ROS node performs dead reckoning by integrating GNSS, IMU, and wheel odometry data to estimate the position and orientation of a vehicle. The node sets the starting GNSS fix as the origin and continuously updates the odometry data based on the ENU (East-North-Up) coordinate system. It provides options for sensor fusion and smoothing to improve the accuracy and reliability of the odometry output.
+
+- Subscribed Topics
+  - ~fix_in ([sensor_msgs/NavSatFix](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/NavSatFix.html))
+    - Input fix topic from ublox_gps
+  - ~heading_in ([sensor_msgs/Imu](http://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html))
+    - Input navheading topic from ublox_gps
+  - (optional) ~odom_in ([nav_msgs/Odometry](http://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html))
+    - Input wheel odometry topic, using only linear velocity
+  - (optional) ~imu_in ([sensor_msgs/Imu](http://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html))
+    - Input IMU topic, using only angular velocity
+- Published Topics
+  - ~odom_fused ([nav_msgs/Odometry](http://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html))
+    - Output odom topic
+  - (optional) ~odom_gnss ([nav_msgs/Odometry](http://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html))
+    - Output odom topic before smoothing
+  - (optional) ~fix_fused ([sensor_msgs/NavSatFix](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/NavSatFix.html))
+    - Smoothed odometry converted to navsatfix for visualization with rviz_satellite
+  - (optional) ~heading_fused ([sensor_msgs/Imu](http://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html))
+    - Smoothed navheading interpolated by odm_in or imu_im
+- Parameters
+  - ~parent_frame_id (string, default: "gnss")
+    - The frame_id for the odom topic to be published
+  - ~fix_reject_covariance (double, default: 1.0)
+    - Input from `~fix_in` will be ignored if the covariance value is greater than this threshold
+  - ~fix_trust_covariance (double, default: 0.1)
+    - The smaller the covariance, the stronger the correction
+    - 50% of the correction is applied when `covariance == fix_trust_covariance`, 100% when `covariance == 0`
+  - ~navheading_reject_covariance (double, default: 1.0)
+    - Input from `~heading_in` will be ignored if the covariance value is greater than this threshold
+  - ~navheading_trust_covariance (double, default:0.01)
+    - The smaller the covariance, the stronger the correction
+    - 50% of the correction is applied when `covariance == navheading_trust_covariance`, 100% when `covariance == 0`
+  - ~fix_timeout (double, default: 10.0)
+    - If `~fix_in` is not received for a longer time than this, a warning will appear
+  - ~sensor_fusion (bool, default: "true")
+    - Option to enable smoothing
+  - ~pubish_odom_gnss (bool, default: "false")
+    - Set to true to publish `~odom_gnss`
+  - ~publish_heading_fused (bool, default: "false")
+    - Set to true to publish `~heading_fused`
+  - ~publish_fix_fused (bool, default: "false")
+    - Set to true to publish `~fix_fused`
+  - ~use_imu (bool, default: "true")
+    - Enable subscription to `~imu_in`
+    - Use IMU data for smoothing
+  - ~use_odom (bool, default: "true")
+    - Enable subscription to `~odom_in`
+    - Use odometry data for smoothing
+  - ~max_velocity_scale (double, default: 1.4)
+    - How many times the speed of odometry to allow when smoothing
+    - Must be greater than 1.0
+    - Larger values lead to faster response, while smaller values result in smoother output
+  - ~min_velocity_scale (double, default: 0.6)
+    - How many times the speed of odometry to allow when smoothing
+    - Must be less than 1.0
+    - Smaller values lead to faster response, while larger values result in smoother output
+  - ~slip_angle_tolerance (double, default: 0.1)
+    - The unit is radians
+    - The angular error to allow for the direction of the odometry velocity when smoothing
+  - ~relative_orinetation (bool, default: "false")
+    - When false, publish orientations in ENU coordinate system
+    - When true, publish orientations in the odometry coordinate system

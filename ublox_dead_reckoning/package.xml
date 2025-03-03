@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package format="2">
+  <name>ublox_dead_reckoning</name>
+  <version>0.0.0</version>
+  <description>This is a ROS package to integrate navsatfix, odometry and IMU for dead reckoning</description>
+  <maintainer email="SBGRP-git@g.softbank.co.jp">SoftBank corp.</maintainer>
+  <license>Apache 2.0</license>
+  <url type="repository">https://github.com/sbgisen/ublox_rtk</url>
+  <url type="bugtracker">https://github.com/sbgisen/ublox_rtk/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf2_eigen</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2_eigen</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+</package>
